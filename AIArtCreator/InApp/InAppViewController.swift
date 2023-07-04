@@ -35,7 +35,8 @@ class InAppViewController: UIViewController {
     private let crossButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = UIColor(red: 0.04, green: 0.04, blue: 0.04, alpha: 1.00)
-        button.setImage(UIImage(named: "btn_cross"), for: .normal)
+        let image = UIImage(named: "btn_cross")
+        button.setImage(image, for: .normal)
         button.addTarget(self, action: #selector(crossButtonTapped), for: .touchUpInside)
         button.isHidden = true
         return button
@@ -157,7 +158,7 @@ class InAppViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 2
         button.layer.borderColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.00).cgColor
-        button.addTarget(self, action: #selector(weeklyButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(yearlyButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -271,8 +272,8 @@ class InAppViewController: UIViewController {
     
     private func addSubviews() {
         view.addSubview(inAppImageView)
-        //        view.addSubview(crossButton)
-        inAppImageView.addSubview(crossButton)
+        view.addSubview(crossButton) //, with this way, the button is working!
+       // inAppImageView.addSubview(crossButton) In this way, the button is not working!
         view.addSubview(blurUIView)
         blurUIView.addSubview(explorePremiumLabel)
         blurUIView.addSubview(unleashLabel)
@@ -321,8 +322,8 @@ class InAppViewController: UIViewController {
         }
         
         crossButton.snp.makeConstraints { make in
-            make.top.equalTo(inAppImageView.snp.top).offset(30)
-            make.right.equalToSuperview().offset(-5)
+            make.top.equalTo(inAppImageView.snp.top).offset(40)
+            make.right.equalToSuperview().offset(-10)
         }
         blurUIView.snp.makeConstraints { make in
             make.bottom.equalTo(inAppImageView.snp.bottom).offset(30)
@@ -429,15 +430,21 @@ class InAppViewController: UIViewController {
     }
     
     @objc private func crossButtonTapped(){
-        
+        let vc = HomeViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc private func weeklyButtonTapped() {
         
     }
     
-    @objc private func startButtonTapped() {
+    @objc private func yearlyButtonTapped() {
         
+    }
+    
+    @objc private func startButtonTapped() {
+        let vc = HomeViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }
