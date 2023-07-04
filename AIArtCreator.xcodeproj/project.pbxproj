@@ -7,23 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4964CF592A53F653006465E3 /* Onboarding3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4964CF582A53F653006465E3 /* Onboarding3ViewController.swift */; };
+		4964CF5B2A53F90F006465E3 /* Onboarding4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4964CF5A2A53F90F006465E3 /* Onboarding4ViewController.swift */; };
+		4964CF5E2A5401C2006465E3 /* InAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4964CF5D2A5401C2006465E3 /* InAppViewController.swift */; };
+		4964CF602A540660006465E3 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 4964CF5F2A540660006465E3 /* loading.json */; };
+		4964CF642A540809006465E3 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4964CF632A540809006465E3 /* Lottie */; };
 		49CDDB0C2A52D75300229066 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 49CDDB0B2A52D75300229066 /* SnapKit */; };
 		49CDDB0E2A52EE9900229066 /* Onboarding2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CDDB0D2A52EE9900229066 /* Onboarding2ViewController.swift */; };
+		49CDDB122A52FC0000229066 /* OnboardingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CDDB112A52FC0000229066 /* OnboardingTableViewCell.swift */; };
 		49D0B7722A52C46300651B7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0B7712A52C46300651B7F /* AppDelegate.swift */; };
 		49D0B7742A52C46300651B7F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0B7732A52C46300651B7F /* SceneDelegate.swift */; };
 		49D0B7762A52C46300651B7F /* Onboarding1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0B7752A52C46300651B7F /* Onboarding1ViewController.swift */; };
-		49D0B7792A52C46300651B7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49D0B7772A52C46300651B7F /* Main.storyboard */; };
 		49D0B77B2A52C46500651B7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49D0B77A2A52C46500651B7F /* Assets.xcassets */; };
 		49D0B77E2A52C46500651B7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49D0B77C2A52C46500651B7F /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4964CF582A53F653006465E3 /* Onboarding3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding3ViewController.swift; sourceTree = "<group>"; };
+		4964CF5A2A53F90F006465E3 /* Onboarding4ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding4ViewController.swift; sourceTree = "<group>"; };
+		4964CF5D2A5401C2006465E3 /* InAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppViewController.swift; sourceTree = "<group>"; };
+		4964CF5F2A540660006465E3 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		49CDDB0D2A52EE9900229066 /* Onboarding2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding2ViewController.swift; sourceTree = "<group>"; };
+		49CDDB112A52FC0000229066 /* OnboardingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTableViewCell.swift; sourceTree = "<group>"; };
 		49D0B76E2A52C46300651B7F /* AIArtCreator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIArtCreator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49D0B7712A52C46300651B7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49D0B7732A52C46300651B7F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		49D0B7752A52C46300651B7F /* Onboarding1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding1ViewController.swift; sourceTree = "<group>"; };
-		49D0B7782A52C46300651B7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		49D0B77A2A52C46500651B7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49D0B77D2A52C46500651B7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49D0B77F2A52C46500651B7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -35,19 +44,55 @@
 			buildActionMask = 2147483647;
 			files = (
 				49CDDB0C2A52D75300229066 /* SnapKit in Frameworks */,
+				4964CF642A540809006465E3 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4964CF5C2A5401AE006465E3 /* InApp */ = {
+			isa = PBXGroup;
+			children = (
+				4964CF5D2A5401C2006465E3 /* InAppViewController.swift */,
+			);
+			path = InApp;
+			sourceTree = "<group>";
+		};
+		4964CF612A540664006465E3 /* LottieAnimationFile */ = {
+			isa = PBXGroup;
+			children = (
+				4964CF5F2A540660006465E3 /* loading.json */,
+			);
+			path = LottieAnimationFile;
+			sourceTree = "<group>";
+		};
 		49CDDB092A52D73500229066 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				49CDDB0F2A52F8E300229066 /* OnboardingTableViewCell */,
+				49CDDB102A52F8F100229066 /* OnboardingViewControllers */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		49CDDB0F2A52F8E300229066 /* OnboardingTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				49CDDB112A52FC0000229066 /* OnboardingTableViewCell.swift */,
+			);
+			path = OnboardingTableViewCell;
+			sourceTree = "<group>";
+		};
+		49CDDB102A52F8F100229066 /* OnboardingViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				49D0B7752A52C46300651B7F /* Onboarding1ViewController.swift */,
 				49CDDB0D2A52EE9900229066 /* Onboarding2ViewController.swift */,
+				4964CF582A53F653006465E3 /* Onboarding3ViewController.swift */,
+				4964CF5A2A53F90F006465E3 /* Onboarding4ViewController.swift */,
 			);
-			path = Onboarding;
+			path = OnboardingViewControllers;
 			sourceTree = "<group>";
 		};
 		49D0B7652A52C46300651B7F = {
@@ -69,10 +114,11 @@
 		49D0B7702A52C46300651B7F /* AIArtCreator */ = {
 			isa = PBXGroup;
 			children = (
+				4964CF612A540664006465E3 /* LottieAnimationFile */,
 				49D0B7712A52C46300651B7F /* AppDelegate.swift */,
 				49D0B7732A52C46300651B7F /* SceneDelegate.swift */,
 				49CDDB092A52D73500229066 /* Onboarding */,
-				49D0B7772A52C46300651B7F /* Main.storyboard */,
+				4964CF5C2A5401AE006465E3 /* InApp */,
 				49D0B77A2A52C46500651B7F /* Assets.xcassets */,
 				49D0B77C2A52C46500651B7F /* LaunchScreen.storyboard */,
 				49D0B77F2A52C46500651B7F /* Info.plist */,
@@ -98,6 +144,7 @@
 			name = AIArtCreator;
 			packageProductDependencies = (
 				49CDDB0B2A52D75300229066 /* SnapKit */,
+				4964CF632A540809006465E3 /* Lottie */,
 			);
 			productName = AIArtCreator;
 			productReference = 49D0B76E2A52C46300651B7F /* AIArtCreator.app */;
@@ -129,6 +176,7 @@
 			mainGroup = 49D0B7652A52C46300651B7F;
 			packageReferences = (
 				49CDDB0A2A52D75300229066 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				4964CF622A540809006465E3 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 49D0B76F2A52C46300651B7F /* Products */;
 			projectDirPath = "";
@@ -146,7 +194,7 @@
 			files = (
 				49D0B77E2A52C46500651B7F /* LaunchScreen.storyboard in Resources */,
 				49D0B77B2A52C46500651B7F /* Assets.xcassets in Resources */,
-				49D0B7792A52C46300651B7F /* Main.storyboard in Resources */,
+				4964CF602A540660006465E3 /* loading.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,23 +206,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				49D0B7762A52C46300651B7F /* Onboarding1ViewController.swift in Sources */,
+				4964CF592A53F653006465E3 /* Onboarding3ViewController.swift in Sources */,
 				49D0B7722A52C46300651B7F /* AppDelegate.swift in Sources */,
+				4964CF5E2A5401C2006465E3 /* InAppViewController.swift in Sources */,
 				49CDDB0E2A52EE9900229066 /* Onboarding2ViewController.swift in Sources */,
 				49D0B7742A52C46300651B7F /* SceneDelegate.swift in Sources */,
+				49CDDB122A52FC0000229066 /* OnboardingTableViewCell.swift in Sources */,
+				4964CF5B2A53F90F006465E3 /* Onboarding4ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		49D0B7772A52C46300651B7F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				49D0B7782A52C46300651B7F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		49D0B77C2A52C46500651B7F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -378,6 +422,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4964CF622A540809006465E3 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		49CDDB0A2A52D75300229066 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -389,6 +441,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4964CF632A540809006465E3 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4964CF622A540809006465E3 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		49CDDB0B2A52D75300229066 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 49CDDB0A2A52D75300229066 /* XCRemoteSwiftPackageReference "SnapKit" */;
