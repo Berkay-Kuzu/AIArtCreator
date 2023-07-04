@@ -36,7 +36,6 @@ class Onboarding1ViewController: UIViewController {
         label.font = UIFont(name: "Inter", size: 30)
         label.font = label.font.withSize(30)
         label.font = UIFont.systemFont(ofSize: 30, weight: .regular)
-
         label.textAlignment = .center
         return label
     }()
@@ -58,7 +57,7 @@ class Onboarding1ViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Continue", for: .normal)
         button.titleLabel?.textAlignment = .center
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.backgroundColor = UIColor(red: 0.89, green: 0.65, blue: 0.24, alpha: 1.00)
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 10
@@ -105,11 +104,11 @@ class Onboarding1ViewController: UIViewController {
         }
         continueButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
-            make.left.equalToSuperview().offset(50)
-            make.right.equalToSuperview().offset(-50)
+            make.left.equalToSuperview().offset(60)
+            make.right.equalToSuperview().offset(-60)
 //            make.height.equalTo(50)
             make.height.equalToSuperview().multipliedBy(0.06)
-            make.centerX.equalToSuperview()
+//            make.centerX.equalToSuperview()
         }
     }
     
