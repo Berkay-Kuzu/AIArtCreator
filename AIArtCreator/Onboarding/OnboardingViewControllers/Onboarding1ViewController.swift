@@ -76,7 +76,7 @@ class Onboarding1ViewController: UIViewController {
     }
     
     private func addSubviews() {
-        view.addSubview(onboardingImageView)
+//        view.addSubview(onboardingImageView)
         view.addSubview(welcomeLabel)
         view.addSubview(aiArtCreatorLabel)
         view.addSubview(loremLabel)
@@ -84,6 +84,8 @@ class Onboarding1ViewController: UIViewController {
     }
     
     private func applyConstraints(){
+        
+        view.addSubview(onboardingImageView)
         onboardingImageView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.width.equalToSuperview()
@@ -106,6 +108,7 @@ class Onboarding1ViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
             make.left.equalToSuperview().offset(60)
             make.right.equalToSuperview().offset(-60)
+//            make.left.right.equalToSuperview().inset(60)
 //            make.height.equalTo(50)
             make.height.equalToSuperview().multipliedBy(0.06)
 //            make.centerX.equalToSuperview()
