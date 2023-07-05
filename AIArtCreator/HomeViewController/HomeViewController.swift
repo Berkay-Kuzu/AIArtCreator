@@ -10,6 +10,8 @@ import UIKit
 class HomeViewController: UIViewController {
     
     var home: [Home] = []
+    var selectedButtonIndexPath: IndexPath?
+    var selectedButtonIndexes: Set<Int> = []
     
     private let homeTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
@@ -110,10 +112,10 @@ class HomeViewController: UIViewController {
         button.addTarget(self, action: #selector(createButtonTapped), for: .touchUpInside)
         return button
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
         addSubviews()
@@ -201,27 +203,27 @@ class HomeViewController: UIViewController {
     
     private func dataConfig(){
         home = [
-        Home(homeName: "Surrealist", homeImage: UIImage(named: "img_home")),
-        Home(homeName: "Steampunk", homeImage: UIImage(named: "img_home2")),
-        Home(homeName: "Rick and Morty", homeImage: UIImage(named: "img_home3")),
-        Home(homeName: "Renaissance Painting", homeImage: UIImage(named: "img_home4")),
-        Home(homeName: "Portrait Photo", homeImage: UIImage(named: "img_home5")),
-        Home(homeName: "Pixelart", homeImage: UIImage(named: "img_home6")),
-        Home(homeName: "Pencil Drawing", homeImage: UIImage(named: "img_home7")),
-        Home(homeName: "Pastel", homeImage: UIImage(named: "img_home8")),
-        Home(homeName: "Oil Painting", homeImage: UIImage(named: "img_home9")),
-        Home(homeName: "Mystical", homeImage: UIImage(named: "img_home10")),
-        Home(homeName: "Macrorealistic", homeImage: UIImage(named: "img_home11")),
-        Home(homeName: "Lowpoly", homeImage: UIImage(named: "img_home12")),
-        Home(homeName: "Longshot", homeImage: UIImage(named: "img_home13")),
-        Home(homeName: "Gustavecourbet", homeImage: UIImage(named: "img_home14")),
-        Home(homeName: "Digital Painting", homeImage: UIImage(named: "img_home15")),
-        Home(homeName: "Cyberpunk", homeImage: UIImage(named: "img_home16")),
-        Home(homeName: "Cinematic", homeImage: UIImage(named: "img_home17")),
-        Home(homeName: "Anime", homeImage: UIImage(named: "img_home18")),
-        Home(homeName: "Animation", homeImage: UIImage(named: "img_home19")),
-        Home(homeName: "3D Render", homeImage: UIImage(named: "img_home20")),
-    
+            Home(homeName: "Surrealist", homeImage: UIImage(named: "img_home")),
+            Home(homeName: "Steampunk", homeImage: UIImage(named: "img_home2")),
+            Home(homeName: "Rick and Morty", homeImage: UIImage(named: "img_home3")),
+            Home(homeName: "Renaissance Painting", homeImage: UIImage(named: "img_home4")),
+            Home(homeName: "Portrait Photo", homeImage: UIImage(named: "img_home5")),
+            Home(homeName: "Pixelart", homeImage: UIImage(named: "img_home6")),
+            Home(homeName: "Pencil Drawing", homeImage: UIImage(named: "img_home7")),
+            Home(homeName: "Pastel", homeImage: UIImage(named: "img_home8")),
+            Home(homeName: "Oil Painting", homeImage: UIImage(named: "img_home9")),
+            Home(homeName: "Mystical", homeImage: UIImage(named: "img_home10")),
+            Home(homeName: "Macrorealistic", homeImage: UIImage(named: "img_home11")),
+            Home(homeName: "Lowpoly", homeImage: UIImage(named: "img_home12")),
+            Home(homeName: "Longshot", homeImage: UIImage(named: "img_home13")),
+            Home(homeName: "Gustavecourbet", homeImage: UIImage(named: "img_home14")),
+            Home(homeName: "Digital Painting", homeImage: UIImage(named: "img_home15")),
+            Home(homeName: "Cyberpunk", homeImage: UIImage(named: "img_home16")),
+            Home(homeName: "Cinematic", homeImage: UIImage(named: "img_home17")),
+            Home(homeName: "Anime", homeImage: UIImage(named: "img_home18")),
+            Home(homeName: "Animation", homeImage: UIImage(named: "img_home19")),
+            Home(homeName: "3D Render", homeImage: UIImage(named: "img_home20")),
+            
         ]
     }
 }
@@ -232,10 +234,49 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as? HomeTableViewCell else {return UITableViewCell()}
         cell.setup(home: home[indexPath.row])
         cell.selectionStyle = .none
+        if selectedButtonIndexes.contains(indexPath.row) {
+            cell.isSelectedButton = true
+            cell.homeTableUseButton.backgroundColor = .black
+            cell.homeTableUseButton.setTitle("Using", for: .normal)
+            cell.homeTableUseButton.setTitleColor(.white, for: .normal)
+            if let cellLabel = cell.homeTableLabel.text {
+                print(cellLabel)
+            }
+        } else {
+            cell.isSelectedButton = false
+            cell.homeTableUseButton.backgroundColor = UIColor(red: 0.89, green: 0.65, blue: 0.24, alpha: 1.00)
+            cell.homeTableUseButton.setTitle("Use", for: .normal)
+            cell.homeTableUseButton.setTitleColor(.black, for: .normal)
+        }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Seçilen hücrenin IndexPath'ini güncelle
+        guard let cell = tableView.cellForRow(at: indexPath) as? HomeTableViewCell else {
+            return
+        }
+        
+        if let selectedIndexPath = selectedButtonIndexPath {
+            selectedButtonIndexes.remove(selectedIndexPath.row)
+            tableView.reloadRows(at: [selectedIndexPath], with: .automatic)
+        }
+        
+        if cell.isSelectedButton {
+            cell.isSelectedButton = false
+            selectedButtonIndexPath = nil
+        } else {
+            cell.isSelectedButton = true
+            selectedButtonIndexPath = indexPath
+            selectedButtonIndexes.insert(indexPath.row)
+        }
+        
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     

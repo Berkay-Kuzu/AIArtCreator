@@ -11,9 +11,9 @@ class HomeTableViewCell: UITableViewCell {
     
     static let identifier = String(describing: HomeTableViewCell.self)
     
-    var isButtonSelected = false
+    var isSelectedButton = false
     
-    private let homeTableImageView: UIImageView = {
+     let homeTableImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
@@ -21,7 +21,7 @@ class HomeTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let homeTableLabel: UILabel = {
+     let homeTableLabel: UILabel = {
         let label = UILabel()
         label.text = "Welcome to"
         label.textColor = UIColor.black
@@ -33,7 +33,7 @@ class HomeTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let homeTableUseButton: UIButton = {
+    let homeTableUseButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Use", for: .normal)
         button.titleLabel?.textAlignment = .center
@@ -41,6 +41,7 @@ class HomeTableViewCell: UITableViewCell {
         button.backgroundColor = UIColor(red: 0.89, green: 0.65, blue: 0.24, alpha: 1.00)
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 10
+        button.isUserInteractionEnabled = false
         button.addTarget(self, action: #selector(homeTableUseButtonTapped(_:)), for: .touchUpInside)
         return button
     }()
@@ -90,48 +91,37 @@ class HomeTableViewCell: UITableViewCell {
         
     }
     
-    @objc private func homeTableUseButtonTapped(_ sender: UIButton){
+    @objc func homeTableUseButtonTapped(_ sender: UIButton){
         
-        if isButtonSelected {
-            // Seçili butonun özelliklerini sıfırla
-            isButtonSelected = false
-            homeTableUseButton.backgroundColor = UIColor(red: 0.89, green: 0.65, blue: 0.24, alpha: 1.00)
-            homeTableUseButton.setTitle("Use", for: .normal)
-            homeTableUseButton.setTitleColor(.black, for: .normal)
-            
-            // Diğer hücrelerdeki butonları etkinleştir
-            if let tableView = superview as? UITableView,
-               let indexPath = tableView.indexPath(for: self) {
-                for cell in tableView.visibleCells {
-                    if let cell = cell as? HomeTableViewCell,
-                       let cellIndexPath = tableView.indexPath(for: cell),
-                       cellIndexPath != indexPath {
-                        cell.homeTableUseButton.isEnabled = true
-                    }
-                }
-            }
-        } else {
-            // Diğer hücrelerdeki butonları devre dışı bırak
-            if let tableView = superview as? UITableView,
-               let indexPath = tableView.indexPath(for: self) {
-                for cell in tableView.visibleCells {
-                    if let cell = cell as? HomeTableViewCell,
-                       let cellIndexPath = tableView.indexPath(for: cell),
-                       cellIndexPath != indexPath {
-                        cell.homeTableUseButton.isEnabled = false
-                    }
-                }
-                print(homeTableLabel.text!)//Buton tıklanınca yazı burada print ediliyor.
-            }
-            
-            // Seçili butonun özelliklerini değiştir
-            isButtonSelected = true
-            homeTableUseButton.backgroundColor = .black
-            homeTableUseButton.setTitle("Using", for: .normal)
-            homeTableUseButton.setTitleColor(.white, for: .normal)
-        }
+//        guard let tableView = superview as? UITableView, let indexPath = tableView.indexPath(for: self) else {
+//            return
+//        }
+//
+//        for visibleCell in tableView.visibleCells {
+//            guard let cell = visibleCell as? HomeTableViewCell else {
+//                continue
+//            }
+//
+//            if cell == self {
+//                // Tıklanan butonun renk ve metin değişiklikleri
+//                cell.isSelectedButton = true
+//                cell.homeTableUseButton.backgroundColor = .black
+//                cell.homeTableUseButton.setTitle("Using", for: .normal)
+//                cell.homeTableUseButton.setTitleColor(.white, for: .normal)
+//                print(cell.homeTableLabel.text)
+//            } else {
+//                // Diğer butonların eski haline dönmesi
+//                cell.isSelectedButton = false
+//                cell.homeTableUseButton.backgroundColor = UIColor(red: 0.89, green: 0.65, blue: 0.24, alpha: 1.00)
+//                cell.homeTableUseButton.setTitle("Use", for: .normal)
+//                cell.homeTableUseButton.setTitleColor(.black, for: .normal)
+//            }
+//        }
+//
+//        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
+
 
 
 
