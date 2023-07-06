@@ -278,6 +278,4 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.reloadRows(at: [indexPath], with: .automatic)
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    
 }
