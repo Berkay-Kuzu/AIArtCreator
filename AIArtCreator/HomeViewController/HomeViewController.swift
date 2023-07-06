@@ -124,6 +124,7 @@ class HomeViewController: UIViewController {
         
         homeTableView.dataSource = self
         homeTableView.delegate = self
+        typeTextField.delegate = self
         
         homeTableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
     }
@@ -277,5 +278,18 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         
         tableView.reloadRows(at: [indexPath], with: .automatic)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension HomeViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        typeTextField.endEditing(true)
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+       
+//        guard let city = searchTextField.text else {return}
+//        weatherManager.fetchWeather(cityName: city)
     }
 }
