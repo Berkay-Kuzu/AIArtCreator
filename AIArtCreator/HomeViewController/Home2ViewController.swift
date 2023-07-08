@@ -9,17 +9,19 @@ import UIKit
 
 class Home2ViewController: UIViewController {
     
+    var fetch: Creator?
+    
     private let home2ImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.image = UIImage(named: "img_home17.png")
         return imageView
     }()
     
-    private let exampleLabel: UILabel = {
+     let exampleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Example 3"
+//        label.text = "Example 3"
         label.textColor = UIColor.black
         label.font = UIFont(name: "Inter", size: 15)
         label.font = label.font.withSize(15)
@@ -62,6 +64,13 @@ class Home2ViewController: UIViewController {
         view.backgroundColor = .white
         addSubviews()
         applyConstraints()
+        
+        home2ImageView.image = fetch?.resultImg
+        
+        navigationController?.navigationBar.isHidden = false
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: nil, action: nil)
+        navigationController?.navigationBar.tintColor = .black
+    
     }
     
     private func addSubviews() {
@@ -74,7 +83,7 @@ class Home2ViewController: UIViewController {
     
     private func applyConstraints() {
         home2ImageView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.left.equalToSuperview().offset(30)
             make.right.equalToSuperview().offset(-30)
             

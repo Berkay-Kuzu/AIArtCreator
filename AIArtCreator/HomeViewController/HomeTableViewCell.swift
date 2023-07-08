@@ -11,7 +11,7 @@ class HomeTableViewCell: UITableViewCell {
     
     static let identifier = String(describing: HomeTableViewCell.self)
     
-    var isSelectedButton = false
+//    var isSelectedButton = false
     
      let homeTableImageView: UIImageView = {
         let imageView = UIImageView()
@@ -23,7 +23,7 @@ class HomeTableViewCell: UITableViewCell {
     
      let homeTableLabel: UILabel = {
         let label = UILabel()
-        label.text = "Welcome to"
+//        label.text = "Welcome to"
         label.textColor = UIColor.black
         label.font = UIFont(name: "Inter", size: 15)
         label.font = label.font.withSize(15)
@@ -41,7 +41,7 @@ class HomeTableViewCell: UITableViewCell {
         button.backgroundColor = UIColor(red: 0.89, green: 0.65, blue: 0.24, alpha: 1.00)
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 10
-        button.isUserInteractionEnabled = false
+        button.isUserInteractionEnabled = true
         button.addTarget(self, action: #selector(homeTableUseButtonTapped(_:)), for: .touchUpInside)
         return button
     }()
@@ -79,11 +79,6 @@ class HomeTableViewCell: UITableViewCell {
         }
     }
     
-    func setup(home: Home) {
-        homeTableImageView.image = home.homeImage
-        homeTableLabel.text = home.homeName
-    }
-    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
@@ -92,33 +87,14 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     @objc func homeTableUseButtonTapped(_ sender: UIButton){
-        
-//        guard let tableView = superview as? UITableView, let indexPath = tableView.indexPath(for: self) else {
-//            return
-//        }
-//
-//        for visibleCell in tableView.visibleCells {
-//            guard let cell = visibleCell as? HomeTableViewCell else {
-//                continue
-//            }
-//
-//            if cell == self {
-//                // Tıklanan butonun renk ve metin değişiklikleri
-//                cell.isSelectedButton = true
-//                cell.homeTableUseButton.backgroundColor = .black
-//                cell.homeTableUseButton.setTitle("Using", for: .normal)
-//                cell.homeTableUseButton.setTitleColor(.white, for: .normal)
-//                print(cell.homeTableLabel.text)
-//            } else {
-//                // Diğer butonların eski haline dönmesi
-//                cell.isSelectedButton = false
-//                cell.homeTableUseButton.backgroundColor = UIColor(red: 0.89, green: 0.65, blue: 0.24, alpha: 1.00)
-//                cell.homeTableUseButton.setTitle("Use", for: .normal)
-//                cell.homeTableUseButton.setTitleColor(.black, for: .normal)
-//            }
-//        }
-//
-//        tableView.deselectRow(at: indexPath, animated: true)
+   
+       
+        let indexPath = IndexPath(row: sender.tag, section: 0)
+        selectedTableViewData = tableViewDataArray[indexPath.row]
+        print(selectedTableViewData.tableViewDataName)
+        print("Use Button Clicked")
+        NotificationCenter.default.post(name: NSNotification.Name("reload"), object: nil)
+
     }
 }
 

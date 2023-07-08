@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import Lottie
 
 class HomeViewController: UIViewController {
     
     var home: [Home] = []
-    var selectedButtonIndexPath: IndexPath?
-    var selectedButtonIndexes: Set<Int> = []
+    
+    let animationView = LottieAnimationView(name: "loading")
     
     private let homeTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
@@ -120,13 +121,50 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .white
         addSubviews()
         applyConstraints()
-        dataConfig()
+        closeKeyboard()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: nil, action: nil)
+        navigationController?.navigationBar.tintColor = .black
         
         homeTableView.dataSource = self
         homeTableView.delegate = self
         typeTextField.delegate = self
         
         homeTableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadtableViewView), name: NSNotification.Name("reload"), object: nil)
+        
+        applyAnimation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        selectedTableViewData = TableViewData()
+        typeTextField.text = ""
+        reloadtableViewView()
+        applyAnimation()
+    }
+    
+    private func applyAnimation() {
+        animationView.loopMode = .loop
+        animationView.isHidden = true
+//        animationView.backgroundColor = .white
+    }
+    
+    private func configureNavBar() {
+        navigationController?.isNavigationBarHidden = true
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: nil, action: nil)
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.tintColor = .black
+    }
+    
+    private func closeKeyboard() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func handleTap() {
+        view.endEditing(true)
     }
     
     private func addSubviews(){
@@ -139,6 +177,7 @@ class HomeViewController: UIViewController {
         view.addSubview(selectACategoryLabel)
         view.addSubview(createButton)
         view.addSubview(homeTableView)
+        view.addSubview(animationView)
     }
     
     private func applyConstraints(){
@@ -185,6 +224,11 @@ class HomeViewController: UIViewController {
             make.left.right.equalToSuperview()
             make.bottom.equalTo(createButton.snp.top).offset(-10)
         }
+        animationView.snp.makeConstraints { make in
+            make.width.equalToSuperview().multipliedBy(0.5) // Genişlik, ekran genişliğinin yarısı
+               make.height.equalTo(animationView.snp.width)
+            make.center.equalToSuperview()
+        }
     }
     
     @objc private func settingsButtonTapped(){
@@ -192,63 +236,59 @@ class HomeViewController: UIViewController {
         let vc = SettingsViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
+    @objc func reloadtableViewView() {
+        homeTableView.reloadData()
+    }
     
     @objc private func selectFromExamplesButtonTapped(){
         
     }
     
-    @objc private func createButtonTapped(){
-        let vc = Home2ViewController()
-        navigationController?.pushViewController(vc, animated: true)
+    @objc private func createButtonTapped(_ sender: UIButton){
+        animationView.isHidden = false
+        animationView.play()
+        fetchData()
     }
     
-    private func dataConfig(){
-        home = [
-            Home(homeName: "Surrealist", homeImage: UIImage(named: "img_home")),
-            Home(homeName: "Steampunk", homeImage: UIImage(named: "img_home2")),
-            Home(homeName: "Rick and Morty", homeImage: UIImage(named: "img_home3")),
-            Home(homeName: "Renaissance Painting", homeImage: UIImage(named: "img_home4")),
-            Home(homeName: "Portrait Photo", homeImage: UIImage(named: "img_home5")),
-            Home(homeName: "Pixelart", homeImage: UIImage(named: "img_home6")),
-            Home(homeName: "Pencil Drawing", homeImage: UIImage(named: "img_home7")),
-            Home(homeName: "Pastel", homeImage: UIImage(named: "img_home8")),
-            Home(homeName: "Oil Painting", homeImage: UIImage(named: "img_home9")),
-            Home(homeName: "Mystical", homeImage: UIImage(named: "img_home10")),
-            Home(homeName: "Macrorealistic", homeImage: UIImage(named: "img_home11")),
-            Home(homeName: "Lowpoly", homeImage: UIImage(named: "img_home12")),
-            Home(homeName: "Longshot", homeImage: UIImage(named: "img_home13")),
-            Home(homeName: "Gustavecourbet", homeImage: UIImage(named: "img_home14")),
-            Home(homeName: "Digital Painting", homeImage: UIImage(named: "img_home15")),
-            Home(homeName: "Cyberpunk", homeImage: UIImage(named: "img_home16")),
-            Home(homeName: "Cinematic", homeImage: UIImage(named: "img_home17")),
-            Home(homeName: "Anime", homeImage: UIImage(named: "img_home18")),
-            Home(homeName: "Animation", homeImage: UIImage(named: "img_home19")),
-            Home(homeName: "3D Render", homeImage: UIImage(named: "img_home20")),
+    func fetchData() {
+        let creator = Creator(prompt: typeTextField.text, style: selectedTableViewData.tableViewDataName )
+        NetworkManager.shared.fetchImageFromAPI(creator: creator) { [weak self] resultImg in
+            creator.resultImg = resultImg
+            guard let self = self else {return}
             
-        ]
+            DispatchQueue.main.async { 
+                self.animationView.stop()
+                let vc = Home2ViewController()
+                vc.fetch = creator // bu sayede farklı ekranlar arasında veri aktarımı yaptık!!!
+                vc.exampleLabel.text = self.typeTextField.text
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return home.count
+        return tableViewDataArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as? HomeTableViewCell else {return UITableViewCell()}
-        cell.setup(home: home[indexPath.row])
+        
+        cell.homeTableImageView.image = tableViewDataArray[indexPath.row].tableViewDataImage
+        
+        cell.homeTableLabel.text = tableViewDataArray[indexPath.row].tableViewDataName
+        cell.homeTableUseButton.tag = indexPath.row
+        
         cell.selectionStyle = .none
-        if selectedButtonIndexes.contains(indexPath.row) {
-            cell.isSelectedButton = true
+        
+        if tableViewDataArray[indexPath.row].tableViewDataName == selectedTableViewData.tableViewDataName {
             cell.homeTableUseButton.backgroundColor = .black
             cell.homeTableUseButton.setTitle("Using", for: .normal)
             cell.homeTableUseButton.setTitleColor(.white, for: .normal)
-            if let cellLabel = cell.homeTableLabel.text {
-                print(cellLabel)
-            }
+            
         } else {
-            cell.isSelectedButton = false
             cell.homeTableUseButton.backgroundColor = UIColor(red: 0.89, green: 0.65, blue: 0.24, alpha: 1.00)
             cell.homeTableUseButton.setTitle("Use", for: .normal)
             cell.homeTableUseButton.setTitleColor(.black, for: .normal)
@@ -256,29 +296,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Seçilen hücrenin IndexPath'ini güncelle
-        guard let cell = tableView.cellForRow(at: indexPath) as? HomeTableViewCell else {
-            return
-        }
-        
-        if let selectedIndexPath = selectedButtonIndexPath {
-            selectedButtonIndexes.remove(selectedIndexPath.row)
-            tableView.reloadRows(at: [selectedIndexPath], with: .automatic)
-        }
-        
-        if cell.isSelectedButton {
-            cell.isSelectedButton = false
-            selectedButtonIndexPath = nil
-        } else {
-            cell.isSelectedButton = true
-            selectedButtonIndexPath = indexPath
-            selectedButtonIndexes.insert(indexPath.row)
-        }
-        
-        tableView.reloadRows(at: [indexPath], with: .automatic)
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
 }
 
 extension HomeViewController: UITextFieldDelegate {
@@ -288,8 +305,8 @@ extension HomeViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-       
-//        guard let city = searchTextField.text else {return}
-//        weatherManager.fetchWeather(cityName: city)
+        
+        //        guard let city = searchTextField.text else {return}
+        //        weatherManager.fetchWeather(cityName: city)
     }
 }
