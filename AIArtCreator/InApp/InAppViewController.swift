@@ -9,29 +9,6 @@ import UIKit
 
 class InAppViewController: UIViewController {
     
-    private let blurUIView: UIView = {
-        let uıView = UIView()
-        uıView.layer.cornerRadius = 0
-        uıView.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 0.5)
-        return uıView
-    }()
-    
-//    private let inAppBlurImageView: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.contentMode = .scaleAspectFit
-//        imageView.clipsToBounds = true
-//        imageView.image = UIImage(named: "inapp_regtangle.png")
-//        return imageView
-//    }()
-    
-    private let inAppImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
-        imageView.image = UIImage(named: "img_inapp.png")
-        return imageView
-    }()
-    
     private let crossButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = UIColor(red: 0.04, green: 0.04, blue: 0.04, alpha: 1.00)
@@ -67,27 +44,37 @@ class InAppViewController: UIViewController {
     private let inAppStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.spacing = 10
+        stackView.spacing = 5
+       
         return stackView
     }()
     
     private let inAppStackView2: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.spacing = 10
+        stackView.spacing = 5
+//        stackView.distribution = .equalSpacing
         return stackView
     }()
     
     private let inAppStackView3: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
+        stackView.spacing = 5
+//        stackView.distribution = .equalSpacing
+        return stackView
+    }()
+    
+    private let inAppStackViewAll: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
         stackView.spacing = 10
         return stackView
     }()
     
     private let fastProcessingLabel: UILabel = {
         let label = UILabel()
-        label.text = "Fast Processing"
+        label.text = "Fast processing"
         label.textColor = UIColor.black
         label.font = UIFont(name: "Inter", size: 16)
         label.font = label.font.withSize(16)
@@ -109,7 +96,7 @@ class InAppViewController: UIViewController {
     
     private let getMultipleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Get Multiple Results"
+        label.text = "Get multiple results"
         label.textColor = UIColor.black
         label.font = UIFont(name: "Inter", size: 16)
         label.font = label.font.withSize(16)
@@ -147,7 +134,7 @@ class InAppViewController: UIViewController {
         button.backgroundColor = UIColor.white
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 3
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.00).cgColor
         button.addTarget(self, action: #selector(weeklyButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -236,6 +223,7 @@ class InAppViewController: UIViewController {
         label.font = UIFont(name: "Poppins", size: 11)
         label.font = UIFont.systemFont(ofSize: 11, weight: .regular)
         label.attributedText = NSAttributedString(string: "Term of Use", attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue])
+        label.isUserInteractionEnabled = true
         return label
     }()
     
@@ -256,6 +244,7 @@ class InAppViewController: UIViewController {
         label.font = UIFont(name: "Poppins", size: 11)
         label.font = UIFont.systemFont(ofSize: 11, weight: .regular)
         label.attributedText = NSAttributedString(string: "Privacy Policy", attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue])
+        label.isUserInteractionEnabled = true
         return label
     }()
     
@@ -268,15 +257,27 @@ class InAppViewController: UIViewController {
         applyConstraints()
         configureNavBar()
         addStackViews()
+        configureBackgroundImage()
+       
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(termOfUseLabelTapped))
+        termOfUseLabel.addGestureRecognizer(tapGesture)
+        
+        let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(termOfUseLabelTapped))
+        privacyPolicyLabel.addGestureRecognizer(tapGesture2)
+        
     }
     
+    @objc private func termOfUseLabelTapped() {
+        if let url = URL(string: "https://www.google.com") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+
     private func addSubviews() {
-        view.addSubview(inAppImageView)
         view.addSubview(crossButton) //, with this way, the button is working!
        // inAppImageView.addSubview(crossButton) In this way, the button is not working!
-        view.addSubview(blurUIView)
-        blurUIView.addSubview(explorePremiumLabel)
-        blurUIView.addSubview(unleashLabel)
+        view.addSubview(explorePremiumLabel)
+        view.addSubview(unleashLabel)
         view.addSubview(inAppStackView)
         view.addSubview(fastProcessingLabel)
         view.addSubview(checkCircleImageView)
@@ -302,6 +303,7 @@ class InAppViewController: UIViewController {
         view.addSubview(termOfUseLabel)
         view.addSubview(restorePurchasesLabel)
         view.addSubview(privacyPolicyLabel)
+        view.addSubview(inAppStackViewAll)
     
     }
     
@@ -312,47 +314,36 @@ class InAppViewController: UIViewController {
         inAppStackView2.addArrangedSubview(artworkCreationLabel)
         inAppStackView3.addArrangedSubview(checkCircleImageView3)
         inAppStackView3.addArrangedSubview(getMultipleLabel)
+        inAppStackViewAll.addArrangedSubview(inAppStackView)
+        inAppStackViewAll.addArrangedSubview(inAppStackView2)
+        inAppStackViewAll.addArrangedSubview(inAppStackView3)
+        
     }
     
     private func applyConstraints(){
-        inAppImageView.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top)
-            make.width.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.5)
-        }
         
         crossButton.snp.makeConstraints { make in
-            make.top.equalTo(inAppImageView.snp.top).offset(40)
+            make.top.equalTo(view.snp.top).offset(40)
             make.right.equalToSuperview().offset(-10)
         }
-        blurUIView.snp.makeConstraints { make in
-            make.bottom.equalTo(inAppImageView.snp.bottom).offset(30)
-            make.width.equalToSuperview()
-//            make.height.equalToSuperview().multipliedBy(0.1)
-            make.height.equalTo(90)
-        }
+        
         explorePremiumLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(5)
+            make.centerY.equalToSuperview().offset(-90)
             make.centerX.equalToSuperview()
         }
         unleashLabel.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-5)
+            make.top.equalTo(explorePremiumLabel.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
         }
-        inAppStackView.snp.makeConstraints { make in
-            make.top.equalTo(blurUIView.snp.bottom).offset(10)
+        inAppStackViewAll.snp.makeConstraints { make in
+            make.bottom.equalTo(weeklyButton.snp.top).offset(-40)
             make.centerX.equalToSuperview()
+//            make.height.equalToSuperview().multipliedBy(0.15)
+//            make.width.equalToSuperview().multipliedBy(0.6)
         }
-        inAppStackView2.snp.makeConstraints { make in
-            make.top.equalTo(inAppStackView.snp.bottom).offset(10)
-            make.centerX.equalToSuperview()
-        }
-        inAppStackView3.snp.makeConstraints { make in
-            make.top.equalTo(inAppStackView2.snp.bottom).offset(10)
-            make.centerX.equalToSuperview()
-        }
+
         weeklyButton.snp.makeConstraints { make in
-            make.top.equalTo(inAppStackView3.snp.bottom).offset(10)
+            make.bottom.equalTo(yearlyButton.snp.top).offset(-20)
             make.left.equalToSuperview().offset(30)
             make.right.equalToSuperview().offset(-30)
             make.centerX.equalToSuperview()
@@ -371,7 +362,7 @@ class InAppViewController: UIViewController {
             make.right.equalToSuperview().offset(-15)
         }
         yearlyButton.snp.makeConstraints { make in
-            make.top.equalTo(weeklyButton.snp.bottom).offset(10)
+            make.bottom.equalTo(startButton.snp.top).offset(-30)
             make.left.equalToSuperview().offset(30)
             make.right.equalToSuperview().offset(-30)
             make.centerX.equalToSuperview()
@@ -386,7 +377,7 @@ class InAppViewController: UIViewController {
             make.right.equalToSuperview().offset(-15)
         }
         startButton.snp.makeConstraints { make in
-            make.top.equalTo(yearlyButton.snp.bottom).offset(15)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-40)
             make.left.equalToSuperview().offset(60)
             make.right.equalToSuperview().offset(-60)
             //            make.height.equalTo(50)
@@ -429,17 +420,26 @@ class InAppViewController: UIViewController {
         //        navigationController?.navigationBar.tintColor = .black
     }
     
+    private func configureBackgroundImage() {
+        let backgroundImage = UIImage(named: "Inapp")
+        let backgroundImageView = UIImageView(image: backgroundImage)
+        backgroundImageView.frame = view.bounds
+        backgroundImageView.contentMode = .scaleAspectFill
+        view.addSubview(backgroundImageView)
+        view.sendSubviewToBack(backgroundImageView)
+    }
+    
     @objc private func crossButtonTapped(){
         let vc = HomeViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc private func weeklyButtonTapped() {
-        
+        print("WeeklyButtonTapped")
     }
     
     @objc private func yearlyButtonTapped() {
-        
+        print("YearlyButtonTapped")
     }
     
     @objc private func startButtonTapped() {

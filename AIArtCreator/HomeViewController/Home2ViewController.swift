@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Lottie
 
 class Home2ViewController: UIViewController {
     
@@ -108,8 +109,20 @@ class Home2ViewController: UIViewController {
         }
     }
     
+    func regenerateData() {
+        let creator = Creator(prompt: HomeViewController().typeTextField.text, style: selectedTableViewData.tableViewDataName )
+        NetworkManager.shared.fetchImageFromAPI(creator: creator) { [weak self] resultImg in
+            creator.resultImg = resultImg
+            guard let self = self else {return}
+            
+            DispatchQueue.main.async {
+                self.home2ImageView.image = resultImg
+            }
+        }
+    }
+    
     @objc private func regenerateButtonTapped() {
-        
+        regenerateData()
     }
     
     @objc private func createFavoritesButtonTapped() {
@@ -122,7 +135,7 @@ class Home2ViewController: UIViewController {
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 present(alert, animated: true)
             } else {
-                let alert = UIAlertController(title: "Saved!", message: "Your image has been saved to your photo library succesfully.", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Artwork saved successfully!", message: " The AI-generated artwork you created has been succesfully saved to photos.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 present(alert, animated: true)
             }
