@@ -12,6 +12,8 @@ class Home2ViewController: UIViewController {
     
     var fetch: Creator?
     
+    let animationView = LottieAnimationView(name: "loading2")
+    
     private let home2ImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -72,6 +74,7 @@ class Home2ViewController: UIViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: nil, action: nil)
         navigationController?.navigationBar.tintColor = .black
     
+        applyAnimation()
     }
     
     private func addSubviews() {
@@ -80,6 +83,7 @@ class Home2ViewController: UIViewController {
         view.addSubview(exampleLabel)
         view.addSubview(createFavoritesButton)
         view.addSubview(saveButton)
+        view.addSubview(animationView)
     }
     
     private func applyConstraints() {
@@ -107,6 +111,18 @@ class Home2ViewController: UIViewController {
             make.top.equalTo(exampleLabel.snp.bottom).offset(20)
             make.right.equalToSuperview().offset(-20)
         }
+        
+        animationView.snp.makeConstraints { make in
+            make.width.equalToSuperview().multipliedBy(0.5) // Genişlik, ekran genişliğinin yarısı
+            make.height.equalTo(animationView.snp.width)
+            make.center.equalToSuperview()
+        }
+    }
+    
+    private func applyAnimation() {
+        animationView.loopMode = .loop
+        animationView.isHidden = true
+        //        animationView.backgroundColor = .white
     }
     
     func regenerateData() {
@@ -116,12 +132,15 @@ class Home2ViewController: UIViewController {
             guard let self = self else {return}
             
             DispatchQueue.main.async {
+                self.animationView.stop()
                 self.home2ImageView.image = resultImg
             }
         }
     }
     
     @objc private func regenerateButtonTapped() {
+        animationView.isHidden = false
+        animationView.play()
         regenerateData()
     }
     

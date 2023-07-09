@@ -21,6 +21,7 @@
 		497C9B502A56F342007E1580 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C9B4F2A56F342007E1580 /* NetworkManager.swift */; };
 		497C9B522A56FEA2007E1580 /* Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C9B512A56FEA2007E1580 /* Creator.swift */; };
 		4980DEAC2A545AA6002599F4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4980DEAB2A545AA6002599F4 /* HomeViewController.swift */; };
+		49BC0CF22A5AF56500F3738B /* loading2.json in Resources */ = {isa = PBXBuildFile; fileRef = 49BC0CF12A5AF56400F3738B /* loading2.json */; };
 		49CDDB0C2A52D75300229066 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 49CDDB0B2A52D75300229066 /* SnapKit */; };
 		49CDDB0E2A52EE9900229066 /* Onboarding2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CDDB0D2A52EE9900229066 /* Onboarding2ViewController.swift */; };
 		49CDDB122A52FC0000229066 /* OnboardingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CDDB112A52FC0000229066 /* OnboardingTableViewCell.swift */; };
@@ -49,6 +50,7 @@
 		497C9B4F2A56F342007E1580 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		497C9B512A56FEA2007E1580 /* Creator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Creator.swift; sourceTree = "<group>"; };
 		4980DEAB2A545AA6002599F4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		49BC0CF12A5AF56400F3738B /* loading2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading2.json; sourceTree = "<group>"; };
 		49CDDB0D2A52EE9900229066 /* Onboarding2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding2ViewController.swift; sourceTree = "<group>"; };
 		49CDDB112A52FC0000229066 /* OnboardingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTableViewCell.swift; sourceTree = "<group>"; };
 		49D0B76E2A52C46300651B7F /* AIArtCreator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIArtCreator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				4964CF5F2A540660006465E3 /* loading.json */,
+				49BC0CF12A5AF56400F3738B /* loading2.json */,
 			);
 			path = LottieAnimationFile;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49BC0CF22A5AF56500F3738B /* loading2.json in Resources */,
 				49D0B77E2A52C46500651B7F /* LaunchScreen.storyboard in Resources */,
 				49D0B77B2A52C46500651B7F /* Assets.xcassets in Resources */,
 				4964CF602A540660006465E3 /* loading.json in Resources */,
