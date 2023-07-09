@@ -53,7 +53,7 @@ class Home2ViewController: UIViewController {
         button.tintColor = UIColor.black
         let image = UIImage(named: "btn_createDownload")
         button.setImage(image, for: .normal)
-        button.addTarget(self, action: #selector(createFavoritesButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -114,6 +114,22 @@ class Home2ViewController: UIViewController {
     
     @objc private func createFavoritesButtonTapped() {
         
+    }
+    
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+            if let error = error {
+                let alert = UIAlertController(title: "Saving error", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                present(alert, animated: true)
+            } else {
+                let alert = UIAlertController(title: "Saved!", message: "Your image has been saved to your photo library succesfully.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                present(alert, animated: true)
+            }
+        }
+    
+    @objc private func saveButtonTapped() {
+        UIImageWriteToSavedPhotosAlbum(home2ImageView.image ?? UIImage(), self, #selector(image(_:didFinishSavingWithError: contextInfo:)), nil)
     }
 
 }
