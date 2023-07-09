@@ -30,6 +30,9 @@
 		49D0B77B2A52C46500651B7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49D0B77A2A52C46500651B7F /* Assets.xcassets */; };
 		49D0B77E2A52C46500651B7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49D0B77C2A52C46500651B7F /* LaunchScreen.storyboard */; };
 		49DBBA4B2A54ACA3006E4E63 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DBBA4A2A54ACA3006E4E63 /* SettingsViewController.swift */; };
+		49E9C31C2A5994EB00A4A68B /* ExamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E9C31B2A5994EB00A4A68B /* ExamplesViewController.swift */; };
+		49E9C31E2A5997B100A4A68B /* ExamplesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E9C31D2A5997B100A4A68B /* ExamplesCollectionViewCell.swift */; };
+		49E9C3202A59BC9200A4A68B /* ExamplesCollectionViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E9C31F2A59BC9200A4A68B /* ExamplesCollectionViewData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +59,9 @@
 		49D0B77D2A52C46500651B7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49D0B77F2A52C46500651B7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49DBBA4A2A54ACA3006E4E63 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		49E9C31B2A5994EB00A4A68B /* ExamplesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplesViewController.swift; sourceTree = "<group>"; };
+		49E9C31D2A5997B100A4A68B /* ExamplesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplesCollectionViewCell.swift; sourceTree = "<group>"; };
+		49E9C31F2A59BC9200A4A68B /* ExamplesCollectionViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplesCollectionViewData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +177,7 @@
 				49CDDB092A52D73500229066 /* Onboarding */,
 				4964CF5C2A5401AE006465E3 /* InApp */,
 				4980DEAA2A545A84002599F4 /* HomeViewController */,
+				49E9C31A2A5994CB00A4A68B /* ExamplesViewController */,
 				49DBBA492A54AC95006E4E63 /* Settings */,
 				49D0B77A2A52C46500651B7F /* Assets.xcassets */,
 				49D0B77C2A52C46500651B7F /* LaunchScreen.storyboard */,
@@ -186,6 +193,16 @@
 				4915296A2A5543CB0001FB05 /* SettingsTableViewCell.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		49E9C31A2A5994CB00A4A68B /* ExamplesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				49E9C31B2A5994EB00A4A68B /* ExamplesViewController.swift */,
+				49E9C31D2A5997B100A4A68B /* ExamplesCollectionViewCell.swift */,
+				49E9C31F2A59BC9200A4A68B /* ExamplesCollectionViewData.swift */,
+			);
+			path = ExamplesViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,6 +286,7 @@
 			files = (
 				49409F842A557A1B00F03F74 /* Home2ViewController.swift in Sources */,
 				49D0B7762A52C46300651B7F /* Onboarding1ViewController.swift in Sources */,
+				49E9C31E2A5997B100A4A68B /* ExamplesCollectionViewCell.swift in Sources */,
 				4964CF592A53F653006465E3 /* Onboarding3ViewController.swift in Sources */,
 				4915296D2A554F6E0001FB05 /* HomeTableViewCell.swift in Sources */,
 				497C9B502A56F342007E1580 /* NetworkManager.swift in Sources */,
@@ -277,7 +295,9 @@
 				49DBBA4B2A54ACA3006E4E63 /* SettingsViewController.swift in Sources */,
 				4915296F2A5563290001FB05 /* Home.swift in Sources */,
 				4964CF5E2A5401C2006465E3 /* InAppViewController.swift in Sources */,
+				49E9C3202A59BC9200A4A68B /* ExamplesCollectionViewData.swift in Sources */,
 				49CDDB0E2A52EE9900229066 /* Onboarding2ViewController.swift in Sources */,
+				49E9C31C2A5994EB00A4A68B /* ExamplesViewController.swift in Sources */,
 				4980DEAC2A545AA6002599F4 /* HomeViewController.swift in Sources */,
 				49D0B7742A52C46300651B7F /* SceneDelegate.swift in Sources */,
 				497C9B522A56FEA2007E1580 /* Creator.swift in Sources */,

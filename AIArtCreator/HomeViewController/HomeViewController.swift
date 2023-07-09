@@ -14,6 +14,8 @@ class HomeViewController: UIViewController {
     
     let animationView = LottieAnimationView(name: "loading")
     
+    var textToDisplay: String?
+    
     private let homeTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.backgroundColor = .white
@@ -76,7 +78,7 @@ class HomeViewController: UIViewController {
         return button
     }()
     
-    private let typeTextField: UITextField = {
+    let typeTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.placeholder = "Type Something..."
@@ -122,9 +124,8 @@ class HomeViewController: UIViewController {
         addSubviews()
         applyConstraints()
         closeKeyboard()
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: nil, action: nil)
-        navigationController?.navigationBar.tintColor = .black
-        
+        configureNavBar()
+
         homeTableView.dataSource = self
         homeTableView.delegate = self
         typeTextField.delegate = self
@@ -133,12 +134,14 @@ class HomeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadtableViewView), name: NSNotification.Name("reload"), object: nil)
         
         applyAnimation()
+        
+        typeTextField.text = textToDisplay
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         selectedTableViewData = TableViewData()
-        typeTextField.text = ""
+//        typeTextField.text = ""
         reloadtableViewView()
         applyAnimation()
     }
@@ -146,14 +149,12 @@ class HomeViewController: UIViewController {
     private func applyAnimation() {
         animationView.loopMode = .loop
         animationView.isHidden = true
-//        animationView.backgroundColor = .white
+        //        animationView.backgroundColor = .white
     }
     
     private func configureNavBar() {
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.isNavigationBarHidden = false
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: nil, action: nil)
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.tintColor = .black
     }
     
@@ -226,7 +227,7 @@ class HomeViewController: UIViewController {
         }
         animationView.snp.makeConstraints { make in
             make.width.equalToSuperview().multipliedBy(0.5) // Genişlik, ekran genişliğinin yarısı
-               make.height.equalTo(animationView.snp.width)
+            make.height.equalTo(animationView.snp.width)
             make.center.equalToSuperview()
         }
     }
@@ -241,7 +242,8 @@ class HomeViewController: UIViewController {
     }
     
     @objc private func selectFromExamplesButtonTapped(){
-        
+        let vc = ExamplesViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc private func createButtonTapped(_ sender: UIButton){

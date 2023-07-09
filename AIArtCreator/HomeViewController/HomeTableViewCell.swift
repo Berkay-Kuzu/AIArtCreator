@@ -11,8 +11,6 @@ class HomeTableViewCell: UITableViewCell {
     
     static let identifier = String(describing: HomeTableViewCell.self)
     
-//    var isSelectedButton = false
-    
      let homeTableImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -88,7 +86,6 @@ class HomeTableViewCell: UITableViewCell {
     
     @objc func homeTableUseButtonTapped(_ sender: UIButton){
    
-       
         let indexPath = IndexPath(row: sender.tag, section: 0)
         selectedTableViewData = tableViewDataArray[indexPath.row]
         print(selectedTableViewData.tableViewDataName)
