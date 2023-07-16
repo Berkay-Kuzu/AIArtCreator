@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "C29C0B97-F124-4F4B-B305-597B6F9CF147"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B3479E07-B158-44D9-9A28-FBAB83571444"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AIArtCreator/InApp/InAppViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "305"
+            endingLineNumber = "305"
+            landmarkName = "restorePurchasesLabelTapped()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B3479E07-B158-44D9-9A28-FBAB83571444 - dc2278129b28b471"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;RevenueCat.CustomerInfo&gt;, Swift.Optional&lt;__C.NSError&gt;) -&gt; () in AIArtCreator.InAppViewController.restorePurchasesLabelTapped() -&gt; ()"
+                  moduleName = "AIArtCreator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/Graduation%20Project/AIArtCreator/AIArtCreator/InApp/InAppViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "314"
+                  endingLineNumber = "314"
+                  offsetFromSymbolStart = "432">
+               </Location>
+               <Location
+                  uuid = "B3479E07-B158-44D9-9A28-FBAB83571444 - dc2278129b28b7a8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;RevenueCat.CustomerInfo&gt;, Swift.Optional&lt;__C.NSError&gt;) -&gt; () in AIArtCreator.InAppViewController.restorePurchasesLabelTapped() -&gt; ()"
+                  moduleName = "AIArtCreator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/Graduation%20Project/AIArtCreator/AIArtCreator/InApp/InAppViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "305"
+                  endingLineNumber = "305"
+                  offsetFromSymbolStart = "876">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "39FC9767-B73D-4C03-8F4B-779813001DC1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AIArtCreator/InApp/InAppViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "312"
+            endingLineNumber = "312"
+            landmarkName = "restorePurchasesLabelTapped()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "39FC9767-B73D-4C03-8F4B-779813001DC1 - dc2278129b28b471"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;RevenueCat.CustomerInfo&gt;, Swift.Optional&lt;__C.NSError&gt;) -&gt; () in AIArtCreator.InAppViewController.restorePurchasesLabelTapped() -&gt; ()"
+                  moduleName = "AIArtCreator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/Graduation%20Project/AIArtCreator/AIArtCreator/InApp/InAppViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "314"
+                  endingLineNumber = "314"
+                  offsetFromSymbolStart = "432">
+               </Location>
+               <Location
+                  uuid = "39FC9767-B73D-4C03-8F4B-779813001DC1 - dc2278129b28b4b3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;RevenueCat.CustomerInfo&gt;, Swift.Optional&lt;__C.NSError&gt;) -&gt; () in AIArtCreator.InAppViewController.restorePurchasesLabelTapped() -&gt; ()"
+                  moduleName = "AIArtCreator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/Graduation%20Project/AIArtCreator/AIArtCreator/InApp/InAppViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "312"
+                  endingLineNumber = "312"
+                  offsetFromSymbolStart = "1616">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4C5253FE-BA4D-4579-9D23-DC10239232D2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AIArtCreator/InApp/InAppViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "302"
+            endingLineNumber = "302"
+            landmarkName = "restorePurchasesLabelTapped()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4C5253FE-BA4D-4579-9D23-DC10239232D2 - dc2278129b28b605"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;RevenueCat.CustomerInfo&gt;, Swift.Optional&lt;__C.NSError&gt;) -&gt; () in AIArtCreator.InAppViewController.restorePurchasesLabelTapped() -&gt; ()"
+                  moduleName = "AIArtCreator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/Graduation%20Project/AIArtCreator/AIArtCreator/InApp/InAppViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "302"
+                  endingLineNumber = "302"
+                  offsetFromSymbolStart = "288">
+               </Location>
+               <Location
+                  uuid = "4C5253FE-BA4D-4579-9D23-DC10239232D2 - dc2278129b28b605"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;RevenueCat.CustomerInfo&gt;, Swift.Optional&lt;__C.NSError&gt;) -&gt; () in AIArtCreator.InAppViewController.restorePurchasesLabelTapped() -&gt; ()"
+                  moduleName = "AIArtCreator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/Graduation%20Project/AIArtCreator/AIArtCreator/InApp/InAppViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "302"
+                  endingLineNumber = "302"
+                  offsetFromSymbolStart = "280">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

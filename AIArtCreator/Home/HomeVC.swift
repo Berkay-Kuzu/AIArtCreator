@@ -6,12 +6,16 @@
 //
 
 import UIKit
+import Lottie
+import Hero
 
-class HomeViewController: UIViewController {
+class HomeVC: UIViewController {
     
     var home: [Home] = []
-    var selectedButtonIndexPath: IndexPath?
-    var selectedButtonIndexes: Set<Int> = []
+    
+    let animationView = LottieAnimationView(name: "loading")
+    
+    var textToDisplay: String?
     
     private let homeTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
@@ -63,6 +67,15 @@ class HomeViewController: UIViewController {
         return button
     }()
     
+    private let favoriteButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = UIColor.black
+        let image = UIImage(named: "btn_favoritesUnselected")
+        button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
     private let selectFromExamplesButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Select From Examples >", for: .normal)
@@ -75,7 +88,7 @@ class HomeViewController: UIViewController {
         return button
     }()
     
-    private let typeTextField: UITextField = {
+    let typeTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.placeholder = "Type Something..."
@@ -115,18 +128,84 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
         addSubviews()
         applyConstraints()
-        dataConfig()
+        closeKeyboard()
+        configureNavBar()
         
         homeTableView.dataSource = self
         homeTableView.delegate = self
         typeTextField.delegate = self
         
         homeTableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadtableViewView), name: NSNotification.Name("reload"), object: nil)
+        
+        applyAnimation()
+        
+        typeTextField.text = textToDisplay
+        
+//        if paymentControl == false {
+//            let vc = InAppViewController()
+//            vc.hero.isEnabled = true
+//            vc.modalPresentationStyle = .fullScreen
+//            vc.heroModalAnimationType = .slide(direction: .up)
+//            self.present(vc, animated: true)
+//        }else{
+//            let vc = HomeViewController()
+//            self.present(vc, animated: true)
+//
+//        }
+        
+        //        if (UserDefaults.standard.bool(forKey: "isUserPremium")) {
+        //            let vc = InAppViewController()
+        //            vc.hero.isEnabled = true
+        //            vc.modalPresentationStyle = .fullScreen
+        //            vc.heroModalAnimationType = .slide(direction: .up)
+        //            self.present(vc, animated: true)
+        //        } else {
+        //
+        //        }
+        
+        
+        //        let vc = InAppViewController()
+        //        vc.hero.isEnabled = true
+        //        vc.modalPresentationStyle = .fullScreen
+        //        vc.heroModalAnimationType = .slide(direction: .up)
+        //        self.present(vc, animated: true)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        selectedTableViewData = TableViewData()
+        //        typeTextField.text = ""
+        reloadtableViewView()
+        applyAnimation()
+        
+    }
+    
+    private func applyAnimation() {
+        animationView.loopMode = .loop
+        animationView.isHidden = true
+        //        animationView.backgroundColor = .white
+    }
+    
+    private func configureNavBar() {
+        navigationController?.isNavigationBarHidden = true
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: nil, action: nil)
+        navigationController?.navigationBar.tintColor = .black
+    }
+    
+    private func closeKeyboard() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func handleTap() {
+        view.endEditing(true)
     }
     
     private func addSubviews(){
@@ -139,6 +218,8 @@ class HomeViewController: UIViewController {
         view.addSubview(selectACategoryLabel)
         view.addSubview(createButton)
         view.addSubview(homeTableView)
+        view.addSubview(animationView)
+        view.addSubview(favoriteButton)
     }
     
     private func applyConstraints(){
@@ -152,7 +233,12 @@ class HomeViewController: UIViewController {
         }
         settingsButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
-            make.right.equalToSuperview().offset(-10)
+            make.right.equalToSuperview().offset(-5)
+        }
+        
+        favoriteButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.right.equalTo(settingsButton.snp.left).offset(-20)
         }
         enterPromptLabel.snp.makeConstraints { make in
             make.top.equalTo(loremIpsumLabel.snp.bottom).offset(20)
@@ -175,7 +261,7 @@ class HomeViewController: UIViewController {
             make.left.equalToSuperview().offset(20)
         }
         createButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-10)
             make.left.equalToSuperview().offset(60)
             make.right.equalToSuperview().offset(-60)
             make.height.equalToSuperview().multipliedBy(0.06)
@@ -185,70 +271,96 @@ class HomeViewController: UIViewController {
             make.left.right.equalToSuperview()
             make.bottom.equalTo(createButton.snp.top).offset(-10)
         }
+        animationView.snp.makeConstraints { make in
+            make.width.equalToSuperview().multipliedBy(0.5) // Genişlik, ekran genişliğinin yarısı
+            make.height.equalTo(animationView.snp.width)
+            make.center.equalToSuperview()
+        }
     }
     
     @objc private func settingsButtonTapped(){
-        //Settings screen will be opened!
-        let vc = SettingsViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        
+        let vc = SettingsVC()
+        vc.hero.isEnabled = true
+        vc.modalPresentationStyle = .fullScreen
+        vc.heroModalAnimationType = .slide(direction: .left)
+        present(vc, animated: true)
+//        dismiss(animated: true)
+        
+    }
+    @objc func reloadtableViewView() {
+        homeTableView.reloadData()
     }
     
     @objc private func selectFromExamplesButtonTapped(){
         
+        let vc = ExamplesVC()
+        vc.hero.isEnabled = true
+        vc.modalPresentationStyle = .fullScreen
+        vc.heroModalAnimationType = .slide(direction: .left)
+        self.present(vc, animated: true)
     }
     
-    @objc private func createButtonTapped(){
-        let vc = Home2ViewController()
-        navigationController?.pushViewController(vc, animated: true)
+    @objc private func createButtonTapped(_ sender: UIButton){
+        animationView.isHidden = false
+        animationView.play()
+        fetchData()
+        
     }
     
-    private func dataConfig(){
-        home = [
-            Home(homeName: "Surrealist", homeImage: UIImage(named: "img_home")),
-            Home(homeName: "Steampunk", homeImage: UIImage(named: "img_home2")),
-            Home(homeName: "Rick and Morty", homeImage: UIImage(named: "img_home3")),
-            Home(homeName: "Renaissance Painting", homeImage: UIImage(named: "img_home4")),
-            Home(homeName: "Portrait Photo", homeImage: UIImage(named: "img_home5")),
-            Home(homeName: "Pixelart", homeImage: UIImage(named: "img_home6")),
-            Home(homeName: "Pencil Drawing", homeImage: UIImage(named: "img_home7")),
-            Home(homeName: "Pastel", homeImage: UIImage(named: "img_home8")),
-            Home(homeName: "Oil Painting", homeImage: UIImage(named: "img_home9")),
-            Home(homeName: "Mystical", homeImage: UIImage(named: "img_home10")),
-            Home(homeName: "Macrorealistic", homeImage: UIImage(named: "img_home11")),
-            Home(homeName: "Lowpoly", homeImage: UIImage(named: "img_home12")),
-            Home(homeName: "Longshot", homeImage: UIImage(named: "img_home13")),
-            Home(homeName: "Gustavecourbet", homeImage: UIImage(named: "img_home14")),
-            Home(homeName: "Digital Painting", homeImage: UIImage(named: "img_home15")),
-            Home(homeName: "Cyberpunk", homeImage: UIImage(named: "img_home16")),
-            Home(homeName: "Cinematic", homeImage: UIImage(named: "img_home17")),
-            Home(homeName: "Anime", homeImage: UIImage(named: "img_home18")),
-            Home(homeName: "Animation", homeImage: UIImage(named: "img_home19")),
-            Home(homeName: "3D Render", homeImage: UIImage(named: "img_home20")),
+    @objc private func favoriteButtonTapped() {
+        
+        let vc = FavoritesVC()
+        vc.hero.isEnabled = true
+        vc.modalPresentationStyle = .fullScreen
+        vc.heroModalAnimationType = .slide(direction: .left)
+        present(vc, animated: true)
+        
+    }
+    
+    func fetchData() {
+        let creator = Creator(prompt: typeTextField.text, style: selectedTableViewData.tableViewDataName )
+        NetworkManager.shared.fetchImageFromAPI(creator: creator) { [weak self] resultImg in
+            creator.resultImg = resultImg
+            guard let self = self else {return}
             
-        ]
+            DispatchQueue.main.async {
+                self.animationView.stop()
+                let vc = Home2VC()
+                vc.hero.isEnabled = true
+                vc.modalPresentationStyle = .fullScreen
+                vc.heroModalAnimationType = .slide(direction: .left)
+                vc.fetch = creator // bu sayede farklı ekranlar arasında veri aktarımı yaptık!!!
+                vc.exampleLabel.text = self.typeTextField.text
+                self.present(vc, animated: true)
+                
+            }
+        }
     }
 }
 
-extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
+extension HomeVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return home.count
+        return tableViewDataArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as? HomeTableViewCell else {return UITableViewCell()}
-        cell.setup(home: home[indexPath.row])
+        
+        cell.homeTableImageView.image = tableViewDataArray[indexPath.row].tableViewDataImage
+        
+        cell.homeTableLabel.text = tableViewDataArray[indexPath.row].tableViewDataName
+        cell.homeTableUseButton.tag = indexPath.row
+        
         cell.selectionStyle = .none
-        if selectedButtonIndexes.contains(indexPath.row) {
-            cell.isSelectedButton = true
+        
+        if tableViewDataArray[indexPath.row].tableViewDataName == selectedTableViewData.tableViewDataName {
             cell.homeTableUseButton.backgroundColor = .black
             cell.homeTableUseButton.setTitle("Using", for: .normal)
             cell.homeTableUseButton.setTitleColor(.white, for: .normal)
-            if let cellLabel = cell.homeTableLabel.text {
-                print(cellLabel)
-            }
+            
         } else {
-            cell.isSelectedButton = false
             cell.homeTableUseButton.backgroundColor = UIColor(red: 0.89, green: 0.65, blue: 0.24, alpha: 1.00)
             cell.homeTableUseButton.setTitle("Use", for: .normal)
             cell.homeTableUseButton.setTitleColor(.black, for: .normal)
@@ -256,40 +368,12 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Seçilen hücrenin IndexPath'ini güncelle
-        guard let cell = tableView.cellForRow(at: indexPath) as? HomeTableViewCell else {
-            return
-        }
-        
-        if let selectedIndexPath = selectedButtonIndexPath {
-            selectedButtonIndexes.remove(selectedIndexPath.row)
-            tableView.reloadRows(at: [selectedIndexPath], with: .automatic)
-        }
-        
-        if cell.isSelectedButton {
-            cell.isSelectedButton = false
-            selectedButtonIndexPath = nil
-        } else {
-            cell.isSelectedButton = true
-            selectedButtonIndexPath = indexPath
-            selectedButtonIndexes.insert(indexPath.row)
-        }
-        
-        tableView.reloadRows(at: [indexPath], with: .automatic)
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
 }
 
-extension HomeViewController: UITextFieldDelegate {
+extension HomeVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         typeTextField.endEditing(true)
         return true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-       
-//        guard let city = searchTextField.text else {return}
-//        weatherManager.fetchWeather(cityName: city)
-    }
 }

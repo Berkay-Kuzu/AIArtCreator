@@ -8,7 +8,7 @@
 import UIKit
 import Lottie
 
-class Onboarding3ViewController: UIViewController {
+class Onboarding3VC: UIViewController {
     
     private let onboarding3TitleLabel: UILabel = {
         let label = UILabel()
@@ -45,8 +45,12 @@ class Onboarding3ViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             self.lottieAnimationView.stop()
             self.lottieAnimationView.removeFromSuperview()
-            let vc = Onboarding4ViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
+
+            let vc = Onboarding4VC()
+            vc.hero.isEnabled = true
+            vc.modalPresentationStyle = .fullScreen
+            vc.heroModalAnimationType = .slide(direction: .left)
+            self.present(vc, animated: true)
         }
     }
     

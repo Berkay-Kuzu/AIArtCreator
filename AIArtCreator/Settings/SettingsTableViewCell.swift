@@ -11,7 +11,7 @@ class SettingsTableViewCell: UITableViewCell {
     
     static let identifier = String(describing: SettingsTableViewCell.self)
     
-    private let settingsLabel: UILabel = {
+     let settingsLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Inter", size: 18)
         label.font = label.font.withSize(18)

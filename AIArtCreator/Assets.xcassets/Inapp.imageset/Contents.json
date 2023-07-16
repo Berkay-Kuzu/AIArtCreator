@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "check-circle.png",
+      "filename" : "Inapp.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "check-circle@2x.png",
+      "filename" : "Inapp@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "check-circle@3x.png",
+      "filename" : "Inapp@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
