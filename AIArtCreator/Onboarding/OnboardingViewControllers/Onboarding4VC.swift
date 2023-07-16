@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Onboarding4ViewController: UIViewController {
+class Onboarding4VC: UIViewController {
     
     private let startExploringButton: UIButton = {
         let button = UIButton(type: .system)
@@ -29,6 +29,11 @@ class Onboarding4ViewController: UIViewController {
         configureBackgroundImage()
         addSubviews()
         applyConstraints()
+        if !UserDefaults.standard.bool(forKey: "isOnboardingCompleted") {
+            UserDefaults.standard.setValue(true, forKey: "isOnboardingCompleted")
+        } else {
+            
+        }
     }
     
     private func addSubviews(){
@@ -57,8 +62,11 @@ class Onboarding4ViewController: UIViewController {
     }
     
     @objc private func startExploringButtonTapped() {
-        let vc = InAppViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        let vc = InAppVC()
+        vc.hero.isEnabled = true
+        vc.modalPresentationStyle = .fullScreen
+        vc.heroModalAnimationType = .slide(direction: .left)
+        present(vc, animated: true)
     }
 
 }

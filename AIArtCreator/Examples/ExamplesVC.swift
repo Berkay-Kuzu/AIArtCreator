@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ExamplesViewController: UIViewController {
+class ExamplesVC: UIViewController {
     
     let items = tableViewDataArray.count // Koleksiyondaki toplam öğe sayısı
     
@@ -65,7 +65,7 @@ class ExamplesViewController: UIViewController {
         
         examplesCollectionView.register(ExamplesCollectionViewCell.self, forCellWithReuseIdentifier: ExamplesCollectionViewCell.identifier)
         
-        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.isHidden = true
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: nil, action: nil)
         navigationController?.navigationBar.tintColor = .black
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: NSNotification.Name("reload"), object: nil)
@@ -112,18 +112,18 @@ class ExamplesViewController: UIViewController {
     @objc private func applyExampleButtonClicked() {
         guard let selectedText = selectedCellText else { return }
             
-            // HomeViewController'a geçiş yapmadan önce
-            // HomeViewController'ın örneğini oluşturun
-            let homeVC = HomeViewController()
+            let homeVC = HomeVC()
             homeVC.textToDisplay = selectedText
-            
-            // HomeViewController'ı push edin
-            navigationController?.pushViewController(homeVC, animated: true)
+        
+        homeVC.hero.isEnabled = true
+        homeVC.modalPresentationStyle = .fullScreen
+        homeVC.heroModalAnimationType = .slide(direction: .right)
+        present(homeVC, animated: true)
     }
     
 }
 
-extension ExamplesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension ExamplesVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let groupCount = items / 4

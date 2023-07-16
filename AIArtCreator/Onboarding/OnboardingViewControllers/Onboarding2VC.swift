@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Onboarding2ViewController: UIViewController {
+class Onboarding2VC: UIViewController {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -84,13 +84,17 @@ class Onboarding2ViewController: UIViewController {
     }
     
     @objc private func continueButtonTapped() {
-        let vc = Onboarding3ViewController()
-        navigationController?.pushViewController(vc, animated: true)
+
+        let vc = Onboarding3VC()
+        vc.hero.isEnabled = true
+        vc.modalPresentationStyle = .fullScreen
+        vc.heroModalAnimationType = .slide(direction: .left)
+        present(vc, animated: true)
     }
     
 }
 
-extension Onboarding2ViewController: UITableViewDelegate, UITableViewDataSource {
+extension Onboarding2VC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 7

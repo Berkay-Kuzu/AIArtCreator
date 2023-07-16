@@ -7,8 +7,10 @@
 
 import UIKit
 import Lottie
+import CoreData
+import Hero
 
-class Home2ViewController: UIViewController {
+class Home2VC: UIViewController {
     
     var fetch: Creator?
     
@@ -22,9 +24,9 @@ class Home2ViewController: UIViewController {
         return imageView
     }()
     
-     let exampleLabel: UILabel = {
+    let exampleLabel: UILabel = {
         let label = UILabel()
-//        label.text = "Example 3"
+        //        label.text = "Example 3"
         label.textColor = UIColor.black
         label.font = UIFont(name: "Inter", size: 15)
         label.font = label.font.withSize(15)
@@ -42,12 +44,12 @@ class Home2ViewController: UIViewController {
         return button
     }()
     
-    private let createFavoritesButton: UIButton = {
+    private let favoritesButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = UIColor.black
         let image = UIImage(named: "btn_createFavorites")
         button.setImage(image, for: .normal)
-        button.addTarget(self, action: #selector(createFavoritesButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(favoritesButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -59,10 +61,19 @@ class Home2ViewController: UIViewController {
         button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         return button
     }()
-
+    
+    private let backButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = UIColor.black
+        let image = UIImage(named: "btn_back")
+        button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
         addSubviews()
@@ -73,7 +84,7 @@ class Home2ViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: nil, action: nil)
         navigationController?.navigationBar.tintColor = .black
-    
+        
         applyAnimation()
     }
     
@@ -81,14 +92,23 @@ class Home2ViewController: UIViewController {
         view.addSubview(home2ImageView)
         view.addSubview(regenerateButton)
         view.addSubview(exampleLabel)
-        view.addSubview(createFavoritesButton)
+        view.addSubview(favoritesButton)
         view.addSubview(saveButton)
         view.addSubview(animationView)
+        view.addSubview(backButton)
     }
     
     private func applyConstraints() {
+        
+        backButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+            make.left.equalToSuperview().offset(10)
+        }
         home2ImageView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(60)
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-90)
+//            make.bottom.equalToSuperview().offset(-30)
             make.left.equalToSuperview().offset(30)
             make.right.equalToSuperview().offset(-30)
             
@@ -103,7 +123,7 @@ class Home2ViewController: UIViewController {
             make.top.equalTo(exampleLabel.snp.bottom).offset(20)
             make.left.equalToSuperview().offset(20)
         }
-        createFavoritesButton.snp.makeConstraints { make in
+        favoritesButton.snp.makeConstraints { make in
             make.top.equalTo(exampleLabel.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
         }
@@ -126,7 +146,7 @@ class Home2ViewController: UIViewController {
     }
     
     func regenerateData() {
-        let creator = Creator(prompt: HomeViewController().typeTextField.text, style: selectedTableViewData.tableViewDataName )
+        let creator = Creator(prompt: HomeVC().typeTextField.text, style: selectedTableViewData.tableViewDataName )
         NetworkManager.shared.fetchImageFromAPI(creator: creator) { [weak self] resultImg in
             creator.resultImg = resultImg
             guard let self = self else {return}
@@ -144,24 +164,69 @@ class Home2ViewController: UIViewController {
         regenerateData()
     }
     
-    @objc private func createFavoritesButtonTapped() {
-        
+    @objc private func backButtonTapped() {
+        let vc = HomeVC()
+        vc.hero.isEnabled = true
+        vc.modalPresentationStyle = .fullScreen
+        vc.heroModalAnimationType = .slide(direction: .right)
+        present(vc, animated: true)
+    }
+    
+    @objc private func favoritesButtonTapped() {
+        if favoritesButton.currentImage == UIImage(named: "btn_favoritesUnselected") {
+            favoritesButton.setImage(UIImage(named: "btn_favoritesSelected"), for: .normal)
+            favoriteImageArray.append(self.home2ImageView.image!)
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            let newEntity = NSEntityDescription.insertNewObject(forEntityName: "AIArtCreator", into: context)
+            
+            let data = home2ImageView.image!.pngData()
+            let stringData = exampleLabel.text
+            
+            newEntity.setValue(data, forKey: "favoriteImage")
+            newEntity.setValue(stringData, forKey: "favoriteLabel")
+            newEntity.setValue(UUID(), forKey: "id")
+            
+            do {
+                try context.save()
+                print("Data Saved successfully")
+               
+                
+            } catch {
+                print("This could not be saved successfully")
+            }
+            
+        } else {
+            favoritesButton.setImage(UIImage(named: "btn_favoritesUnselected"), for: .normal)
+            
+        }
     }
     
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-            if let error = error {
-                let alert = UIAlertController(title: "Saving error", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default))
-                present(alert, animated: true)
-            } else {
-                let alert = UIAlertController(title: "Artwork saved successfully!", message: " The AI-generated artwork you created has been succesfully saved to photos.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default))
-                present(alert, animated: true)
-            }
+        if let error = error {
+            let alert = UIAlertController(title: "Saving error", message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+        } else {
+            let alert = UIAlertController(title: "Artwork saved successfully!", message: " The AI-generated artwork you created has been succesfully saved to photos.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
         }
+    }
     
     @objc private func saveButtonTapped() {
         UIImageWriteToSavedPhotosAlbum(home2ImageView.image ?? UIImage(), self, #selector(image(_:didFinishSavingWithError: contextInfo:)), nil)
+        makeAlert(titleInput: "Artwork saved successfully!", messageInput: "The AI-generated artworkyou created has been successfully saved to photos")
     }
-
+    
+    // MARK: - UIAlertController
+    
+    public func makeAlert(titleInput: String, messageInput: String) {
+        let alert = UIAlertController(title: titleInput, message: messageInput, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
 }

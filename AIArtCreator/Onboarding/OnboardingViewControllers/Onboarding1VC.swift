@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Onboarding1ViewController: UIViewController {
+class Onboarding1VC: UIViewController {
     
     private let onboardingImageView: UIImageView = {
         let imageView = UIImageView()
@@ -116,8 +116,11 @@ class Onboarding1ViewController: UIViewController {
     }
     
     @objc private func continueButtonTapped() {
-        let vc = Onboarding2ViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        let vc = Onboarding2VC()
+        vc.hero.isEnabled = true
+        vc.modalPresentationStyle = .fullScreen
+        vc.heroModalAnimationType = .slide(direction: .left)
+        present(vc, animated: true)
     }
     
     private func configureNavBar() {

@@ -7,8 +7,9 @@
 
 import UIKit
 import Lottie
+import Hero
 
-class HomeViewController: UIViewController {
+class HomeVC: UIViewController {
     
     var home: [Home] = []
     
@@ -66,6 +67,15 @@ class HomeViewController: UIViewController {
         return button
     }()
     
+    private let favoriteButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = UIColor.black
+        let image = UIImage(named: "btn_favoritesUnselected")
+        button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
     private let selectFromExamplesButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Select From Examples >", for: .normal)
@@ -118,14 +128,13 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
         addSubviews()
         applyConstraints()
         closeKeyboard()
         configureNavBar()
-
+        
         homeTableView.dataSource = self
         homeTableView.delegate = self
         typeTextField.delegate = self
@@ -136,14 +145,45 @@ class HomeViewController: UIViewController {
         applyAnimation()
         
         typeTextField.text = textToDisplay
+        
+//        if paymentControl == false {
+//            let vc = InAppViewController()
+//            vc.hero.isEnabled = true
+//            vc.modalPresentationStyle = .fullScreen
+//            vc.heroModalAnimationType = .slide(direction: .up)
+//            self.present(vc, animated: true)
+//        }else{
+//            let vc = HomeViewController()
+//            self.present(vc, animated: true)
+//
+//        }
+        
+        //        if (UserDefaults.standard.bool(forKey: "isUserPremium")) {
+        //            let vc = InAppViewController()
+        //            vc.hero.isEnabled = true
+        //            vc.modalPresentationStyle = .fullScreen
+        //            vc.heroModalAnimationType = .slide(direction: .up)
+        //            self.present(vc, animated: true)
+        //        } else {
+        //
+        //        }
+        
+        
+        //        let vc = InAppViewController()
+        //        vc.hero.isEnabled = true
+        //        vc.modalPresentationStyle = .fullScreen
+        //        vc.heroModalAnimationType = .slide(direction: .up)
+        //        self.present(vc, animated: true)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         selectedTableViewData = TableViewData()
-//        typeTextField.text = ""
+        //        typeTextField.text = ""
         reloadtableViewView()
         applyAnimation()
+        
     }
     
     private func applyAnimation() {
@@ -153,7 +193,7 @@ class HomeViewController: UIViewController {
     }
     
     private func configureNavBar() {
-        navigationController?.isNavigationBarHidden = false
+        navigationController?.isNavigationBarHidden = true
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: nil, action: nil)
         navigationController?.navigationBar.tintColor = .black
     }
@@ -179,6 +219,7 @@ class HomeViewController: UIViewController {
         view.addSubview(createButton)
         view.addSubview(homeTableView)
         view.addSubview(animationView)
+        view.addSubview(favoriteButton)
     }
     
     private func applyConstraints(){
@@ -192,7 +233,12 @@ class HomeViewController: UIViewController {
         }
         settingsButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
-            make.right.equalToSuperview().offset(-10)
+            make.right.equalToSuperview().offset(-5)
+        }
+        
+        favoriteButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.right.equalTo(settingsButton.snp.left).offset(-20)
         }
         enterPromptLabel.snp.makeConstraints { make in
             make.top.equalTo(loremIpsumLabel.snp.bottom).offset(20)
@@ -215,7 +261,7 @@ class HomeViewController: UIViewController {
             make.left.equalToSuperview().offset(20)
         }
         createButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-10)
             make.left.equalToSuperview().offset(60)
             make.right.equalToSuperview().offset(-60)
             make.height.equalToSuperview().multipliedBy(0.06)
@@ -233,23 +279,43 @@ class HomeViewController: UIViewController {
     }
     
     @objc private func settingsButtonTapped(){
-        //Settings screen will be opened!
-        let vc = SettingsViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        
+        let vc = SettingsVC()
+        vc.hero.isEnabled = true
+        vc.modalPresentationStyle = .fullScreen
+        vc.heroModalAnimationType = .slide(direction: .left)
+        present(vc, animated: true)
+//        dismiss(animated: true)
+        
     }
     @objc func reloadtableViewView() {
         homeTableView.reloadData()
     }
     
     @objc private func selectFromExamplesButtonTapped(){
-        let vc = ExamplesViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        
+        let vc = ExamplesVC()
+        vc.hero.isEnabled = true
+        vc.modalPresentationStyle = .fullScreen
+        vc.heroModalAnimationType = .slide(direction: .left)
+        self.present(vc, animated: true)
     }
     
     @objc private func createButtonTapped(_ sender: UIButton){
         animationView.isHidden = false
         animationView.play()
         fetchData()
+        
+    }
+    
+    @objc private func favoriteButtonTapped() {
+        
+        let vc = FavoritesVC()
+        vc.hero.isEnabled = true
+        vc.modalPresentationStyle = .fullScreen
+        vc.heroModalAnimationType = .slide(direction: .left)
+        present(vc, animated: true)
+        
     }
     
     func fetchData() {
@@ -258,18 +324,22 @@ class HomeViewController: UIViewController {
             creator.resultImg = resultImg
             guard let self = self else {return}
             
-            DispatchQueue.main.async { 
+            DispatchQueue.main.async {
                 self.animationView.stop()
-                let vc = Home2ViewController()
+                let vc = Home2VC()
+                vc.hero.isEnabled = true
+                vc.modalPresentationStyle = .fullScreen
+                vc.heroModalAnimationType = .slide(direction: .left)
                 vc.fetch = creator // bu sayede farklı ekranlar arasında veri aktarımı yaptık!!!
                 vc.exampleLabel.text = self.typeTextField.text
-                self.navigationController?.pushViewController(vc, animated: true)
+                self.present(vc, animated: true)
+                
             }
         }
     }
 }
 
-extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
+extension HomeVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableViewDataArray.count
     }
@@ -300,15 +370,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
-extension HomeViewController: UITextFieldDelegate {
+extension HomeVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         typeTextField.endEditing(true)
         return true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
-        //        guard let city = searchTextField.text else {return}
-        //        weatherManager.fetchWeather(cityName: city)
-    }
 }
