@@ -74,7 +74,7 @@ class SettingsVC: UIViewController, MFMailComposeViewControllerDelegate, UINavig
             make.centerX.equalToSuperview()
         }
         
-        let tryPremiumButton = Button(title: "Try Premium")
+        let tryPremiumButton = SettingsButton(title: "Try Premium")
         view.addSubview(tryPremiumButton)
         tryPremiumButton.addTarget(self, action: #selector(tryPremiumButtonTapped), for: .touchUpInside)
         tryPremiumButton.snp.makeConstraints { make in
@@ -83,7 +83,7 @@ class SettingsVC: UIViewController, MFMailComposeViewControllerDelegate, UINavig
             make.right.equalToSuperview().offset(-10)
         }
         
-        let privacyPolicyButton = Button(title: "Privacy Policy")
+        let privacyPolicyButton = SettingsButton(title: "Privacy Policy")
         view.addSubview(privacyPolicyButton)
         privacyPolicyButton.addTarget(self, action: #selector(privacyPolicyButtonTapped), for: .touchUpInside)
         privacyPolicyButton.snp.makeConstraints { make in
@@ -92,7 +92,7 @@ class SettingsVC: UIViewController, MFMailComposeViewControllerDelegate, UINavig
             make.right.equalToSuperview().offset(-10)
         }
         
-        let termsOfUseButton = Button(title: "Terms of Use")
+        let termsOfUseButton = SettingsButton(title: "Terms of Use")
         view.addSubview(termsOfUseButton)
         termsOfUseButton.addTarget(self, action: #selector(termsOfUseButtonTapped), for: .touchUpInside)
         termsOfUseButton.snp.makeConstraints { make in
@@ -101,7 +101,7 @@ class SettingsVC: UIViewController, MFMailComposeViewControllerDelegate, UINavig
             make.right.equalToSuperview().offset(-10)
         }
         
-        let restorePurchaseButton = Button(title: "Restore Purchase")
+        let restorePurchaseButton = SettingsButton(title: "Restore Purchase")
         view.addSubview(restorePurchaseButton)
         restorePurchaseButton.addTarget(self, action: #selector(restorePurchaseButtonTapped), for: .touchUpInside)
         restorePurchaseButton.snp.makeConstraints { make in
@@ -110,7 +110,7 @@ class SettingsVC: UIViewController, MFMailComposeViewControllerDelegate, UINavig
             make.right.equalToSuperview().offset(-10)
         }
         
-        let rateUsButton = Button(title: "Rate Us")
+        let rateUsButton = SettingsButton(title: "Rate Us")
         view.addSubview(rateUsButton)
         rateUsButton.addTarget(self, action: #selector(rateUsButtonTapped), for: .touchUpInside)
         rateUsButton.snp.makeConstraints { make in
@@ -119,7 +119,7 @@ class SettingsVC: UIViewController, MFMailComposeViewControllerDelegate, UINavig
             make.right.equalToSuperview().offset(-10)
         }
         
-        let sendFeedbackButton = Button(title: "Send Feedback")
+        let sendFeedbackButton = SettingsButton(title: "Send Feedback")
         view.addSubview(sendFeedbackButton)
         sendFeedbackButton.addTarget(self, action: #selector(sendFeedbackButtonTapped), for: .touchUpInside)
         sendFeedbackButton.snp.makeConstraints { make in

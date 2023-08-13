@@ -93,6 +93,7 @@ class HomeVC: UIViewController {
         textField.borderStyle = .roundedRect
         textField.placeholder = "Type Something..."
         textField.textAlignment = .left
+        textField.clearButtonMode = .whileEditing
         textField.textColor = .black
         textField.font = UIFont.boldSystemFont(ofSize: 16)
         textField.layer.borderColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.00).cgColor

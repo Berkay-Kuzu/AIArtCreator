@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class Button: UIButton {
+final class SettingsButton: UIButton {
     
 //    let image = UIImageView()
     let label = UILabel()
