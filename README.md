@@ -14,6 +14,7 @@ Neon Apps Graduation Project
 •	Utilized Core Data for users to save and delete created AI images to their local storage. Users can also regenerate the image by making a request to the API and save images to their photo library.
 
 https://github.com/Berkay-Kuzu/AIArtCreator/assets/92036779/63ab452e-ff00-411b-8f1b-2f053c443500
+
 ![Simulator Screenshot - iPhone 8 - 2023-08-21 at 02 30 54](https://github.com/Berkay-Kuzu/AIArtCreator/assets/92036779/6f74f381-7c3b-4a0c-be52-5c1288fb276c)
 ![Simulator Screenshot - iPhone 8 - 2023-08-21 at 02 31 15](https://github.com/Berkay-Kuzu/AIArtCreator/assets/92036779/38fbab72-fc1e-4f57-8e90-b63b766a78e0)
 ![Simulator Screenshot - iPhone 8 - 2023-08-21 at 02 31 21](https://github.com/Berkay-Kuzu/AIArtCreator/assets/92036779/f9fd61ba-dd8a-433a-9b0c-25ea0eb62198)
